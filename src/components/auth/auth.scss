@@ -1,0 +1,35 @@
+.auth {
+  display: flex;
+  min-height: 100vh;
+
+  &-container {
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+
+    &-message {
+      text-align: center;
+      color: orange;
+    }
+
+    &-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1em;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0;
+      // font-family: "Capriola", sans-serif;
+    }
+
+    h2 {
+      text-align: center;
+      color: #075e44;
+      margin-bottom: 2em;
+      font-family: "Capriola", sans-serif;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+.form-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    label {
+        font-size: 1rem;
+        font-weight: 500;
+        position: relative;
+        margin-bottom: 5px;
+    }
+
+    input {
+        border-radius: 5px;
+        font-size: .8rem;
+        padding: 15px 17px;
+
+        &:disabled {
+            background: #f7f8f9;
+            border: 1px solid #dfe3e8!important;
+            cursor: not-allowed;
+        }
+
+        &::placeholder {
+            font-size: .8rem;
+            font-weight: normal;
+            letter-spacing: 0;
+        }
+
+        &.input--default {
+            border: 1px solid #dfe3e8;
+
+            &:hover {
+                border-color: #075e44;
+            }
+
+            &:focus {
+                border-color: #075e44;
+                border-radius: 5px;
+                box-shadow: 0 0 0 3px #075e4440;
+                outline: none;
+            }
+        }
+
+        &.input--error {
+            border: 1px solid #ff6159;
+
+            &:focus {
+                box-shadow: 0 0 0 3px rgb(255, 179, 176, 0.3);
+                outline: none;
+            }
+        }
+    }
+
+    small {
+        font-size: 0.6em;
+        color: red;
+        margin-top: 10px;
+
+    }
+}

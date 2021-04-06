@@ -1,0 +1,23 @@
+.sidebar{
+    // box-sizing: border-box;
+    bottom: 0;
+    // display: block;
+    // left: 0;
+    position: absolute;
+    top: 0;
+    // z-index: 3;
+
+    &-content {
+        background-color: #075e44;
+        // box-sizing: border-box;
+        // display: inline-flex;
+        // flex-direction: column;
+        min-height: 100vh;
+        transition: all .2s ease;
+        width: 280px;
+    }
+
+    &--minimized {
+        width: 90px;
+    }
+}

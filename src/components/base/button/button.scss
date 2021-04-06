@@ -1,0 +1,35 @@
+.btn {
+  padding: 15px 48px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &-primary {
+    background-color: #fff;
+    color: #075e44;
+    border: 1px solid #075e44;
+
+    &:hover {
+      background-color: #075e44;
+      color: #fff;
+    }
+  }
+
+  &-link {
+    color: #075e44;
+    border: none;
+    border-bottom: 1px solid #075e44;
+    padding: 0;
+    background-color: transparent;
+
+    &:hover {
+      border-bottom: none;
+      cursor: pointer;
+    }
+  }
+}
