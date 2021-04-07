@@ -32,4 +32,11 @@
       cursor: pointer;
     }
   }
+
+  &-light {
+    &:hover {
+      background-color: #4e846d;
+      color: #fff;
+    }
+  }
 }

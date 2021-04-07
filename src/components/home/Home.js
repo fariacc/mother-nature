@@ -8,6 +8,12 @@ import Chart from '../base/chart/Chart'
 
 import './home.scss'
 
+const sidebarItems = [
+  { title: 'Dashboard', icon: 'fa fa-home fa-lg' },
+  { title: 'My plants', icon: 'fa fa-pagelines fa-lg' },
+  { title: 'History', icon: 'fa fa-history fa-lg' },
+]
+
 const dataSource = {
   chart: {
     caption: 'Average Fastball Velocity',
@@ -39,41 +45,13 @@ const dataSource = {
       label: '2009',
       value: '90.67',
     },
-    {
-      label: '2010',
-      value: '90.54',
-    },
-    {
-      label: '2011',
-      value: '90.75',
-    },
-    {
-      label: '2012',
-      value: '90.8',
-    },
-    {
-      label: '2013',
-      value: '91.16',
-    },
-    {
-      label: '2014',
-      value: '91.37',
-    },
-    {
-      label: '2015',
-      value: '91.66',
-    },
-    {
-      label: '2016',
-      value: '91.8',
-    },
   ],
 }
 
 const Home = ({ auth }) => {
   return (
     <div className="home">
-      <Sidebar></Sidebar>
+      <Sidebar items={sidebarItems}></Sidebar>
       <Dashboard>
         <>
           <h1>Welcome on Home</h1>

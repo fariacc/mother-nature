@@ -104,7 +104,6 @@ export const signin = (email, password, callback) => async (dispatch) => {
         })
       })
   } catch (err) {
-    console.log(err)
     dispatch(apiCallError())
     dispatch({ type: SIGNIN_ERROR, payload: 'Invalid login credentials' })
   }

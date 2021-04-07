@@ -1,21 +1,13 @@
 import React from 'react'
 
-import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { signout } from '../../../store/actions/auth'
-
-import requireAuth from '../../hoc/requireAuth'
-
-import Button from '../button/Button'
 
 import './header.scss'
 
-const Header = ({ signout, auth }) => {
+const Header = ({ auth }) => {
   return (
     <div className="header">
-      <Button className="btn-primary" onClick={() => signout()}>
-        Log out
-      </Button>
+      <span>{auth.email}</span>
     </div>
   )
 }
@@ -26,13 +18,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    signout: () => dispatch(signout()),
-  }
-}
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  requireAuth
-)(Header)
+export default connect(mapStateToProps)(Header)
