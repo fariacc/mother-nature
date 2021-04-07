@@ -1,81 +1,60 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-import { connect } from 'react-redux'
-
+import Header from '../base/header/Header'
 import Sidebar from '../base/sidebar/Sidebar'
-import Dashboard from '../base/dashboard/Dashboard'
-import Chart from '../base/chart/Chart'
+import Dashboard from '../dashboard/Dashboard'
+import MyPlants from '../myPlants/MyPlants'
+import History from '../history/History'
 
 import './home.scss'
 
-const sidebarItems = [
-  { title: 'Dashboard', icon: 'fa fa-home fa-lg' },
-  { title: 'My plants', icon: 'fa fa-pagelines fa-lg' },
-  { title: 'History', icon: 'fa fa-history fa-lg' },
-]
+class Home extends Component {
+  state = { sidebarShow: true, currentLocation: 'Dashboard' }
 
-const dataSource = {
-  chart: {
-    caption: 'Average Fastball Velocity',
-    yaxisname: 'Velocity (in mph)',
-    subcaption: '[2005-2016]',
-    numbersuffix: ' mph',
-    rotatelabels: '1',
-    setadaptiveymin: '1',
-    theme: 'fusion',
-  },
-  data: [
-    {
-      label: '2005',
-      value: '89.45',
-    },
-    {
-      label: '2006',
-      value: '89.87',
-    },
-    {
-      label: '2007',
-      value: '89.64',
-    },
-    {
-      label: '2008',
-      value: '90.13',
-    },
-    {
-      label: '2009',
-      value: '90.67',
-    },
-  ],
-}
+  handleMenu = () => {
+    this.setState({
+      sidebarShow: !this.state.sidebarShow,
+    })
+  }
 
-const Home = ({ auth }) => {
-  return (
-    <div className="home">
-      <Sidebar items={sidebarItems}></Sidebar>
-      <Dashboard>
-        <>
-          <h1>Welcome on Home</h1>
-          <p>{auth.email}, You have successfully signed in, congrats!</p>
-          <span className="emoji" role="img" aria-label="House With Garden">
-            🏡
-          </span>
-          <Chart
-            type="line"
-            width="600"
-            height="400"
-            dataFormat="JSON"
-            chart={dataSource}
+  handleSelectedItem = (selectedItem) => {
+    this.setState({
+      currentLocation: selectedItem,
+    })
+  }
+
+  componentDidMount() {
+    if (window.innerWidth > 768) {
+      this.setState({
+        sidebarShow: true,
+      })
+    } else {
+      this.setState({
+        sidebarShow: false,
+      })
+    }
+  }
+
+  render() {
+    return (
+      <div className="home">
+        {this.state.sidebarShow ? (
+          <Sidebar
+            className="sidebar-default"
+            onHandleSelectedItem={this.handleSelectedItem}
           />
-        </>
-      </Dashboard>
-    </div>
-  )
-}
-
-function mapStateToProps(state) {
-  return {
-    auth: state.firebaseReducer.auth,
+        ) : (
+          <Sidebar className="sidebar-hidden" />
+        )}
+        <Header onHandleMenu={this.handleMenu} />
+        <div className="home-content">
+          {this.state.currentLocation === 'Dashboard' && <Dashboard />}
+          {this.state.currentLocation === 'My plants' && <MyPlants />}
+          {this.state.currentLocation === 'History' && <History />}
+        </div>
+      </div>
+    )
   }
 }
 
-export default connect(mapStateToProps)(Home)
+export default Home

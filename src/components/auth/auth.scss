@@ -1,3 +1,19 @@
+@media screen and (max-width: 768px) {
+    .auth {
+        &-container {
+            padding: 20px;
+        }
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .auth {
+        &-container {
+            padding: 65px;
+        }
+    }
+}
+
 .auth {
   display: flex;
   min-height: 100vh;
@@ -12,13 +28,6 @@
       color: orange;
     }
 
-    &-footer {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 1em;
-    }
-
     h1 {
       text-align: center;
       margin: 0;
@@ -28,8 +37,15 @@
     h2 {
       text-align: center;
       color: #075e44;
-      margin-bottom: 2em;
+      margin-bottom: 36px;
       font-family: "Capriola", sans-serif;
     }
+  }
+
+  &-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
   }
 }

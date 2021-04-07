@@ -1,5 +1,38 @@
 .header {
     background-color: #ffffff;
-    transition: all 0.2s ease;
     height: 65px;
+    display: flex;
+    justify-items: center;
+
+    &-menu-icon {
+        text-align: end;
+        margin: auto;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        padding: 0 40px;
+
+        i {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 0 20px;
+
+        i {
+            color: #075e44;
+            padding: 10px;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+        }
+    }
 }

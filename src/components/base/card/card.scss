@@ -1,3 +1,31 @@
 .card {
-    
+    background-color: #ffffff;
+    padding: 15px;
+    margin: 20px 15px;
+    border-radius: 8px;
+    height: 100%;
+}
+
+@media screen and (min-width: 1025px) {
+  .card {
+    width: 100%;
+
+    &-right {
+        margin-right: 0;
+    }
+
+    &-left {
+        margin-left: 0;
+    }
+
+    &-center {
+        margin: 10px 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  .card {
+    margin: 20px 0;
+  }
 }

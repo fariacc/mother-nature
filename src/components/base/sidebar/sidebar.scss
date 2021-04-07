@@ -1,11 +1,9 @@
-.sidebar{
-    box-sizing: border-box;
-    bottom: 0;
-    display: block;
+.sidebar {
     left: 0;
     position: absolute;
-    top: 0;
-    z-index: 3;
+    overflow: hidden;
+    z-index: 1;
+    transition: all .2s ease;
 
     &-content {
         background-color: #075e44;
@@ -13,8 +11,7 @@
         display: inline-flex;
         flex-direction: column;
         min-height: 100vh;
-        transition: all .2s ease;
-        width: 250px;
+        width: 100%;
     }
 
     &-logo {
@@ -70,5 +67,13 @@
         margin-bottom: 15px;
         position: relative;
         text-align: center;
+    }
+
+    &-hidden {
+        width: 0;
+    }
+
+    &-default {
+        width: 250px;
     }
 }

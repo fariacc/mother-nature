@@ -1,0 +1,21 @@
+@media screen and (max-width: 1024px) {
+  .dashboard {
+    &-cards {
+      display: block;
+    }
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .dashboard {
+    &-cards {
+      display: inline-flex;
+    }
+  }
+}
+
+.dashboard {
+    &-cards {
+        width: 100%;
+    }
+}

@@ -7,8 +7,14 @@ import Button from '../button/Button'
 
 import './sidebar.scss'
 
-const Sidebar = ({ items, signout }) => {
-  const handleClick = (e) => {
+const sidebarItems = [
+  { title: 'Dashboard', icon: 'fa fa-home fa-lg' },
+  { title: 'My plants', icon: 'fa fa-pagelines fa-lg' },
+  { title: 'History', icon: 'fa fa-history fa-lg' },
+]
+
+const Sidebar = (props, { signout }) => {
+  const handleItemClick = (e) => {
     const activeElements = document.getElementsByClassName(
       'sidebar-items-item--active'
     )
@@ -20,21 +26,32 @@ const Sidebar = ({ items, signout }) => {
     } else {
       e.target.className = 'sidebar-items-item--active'
     }
+
+    const activeElement = document.getElementsByClassName(
+      'sidebar-items-item--active'
+    )[0].innerText
+    props.onHandleSelectedItem(activeElement)
   }
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${props.className}`}>
       <div className="sidebar-content">
         <div className="sidebar-logo"></div>
         <ul className="sidebar-items">
-          {items.map((item, index) => {
+          {sidebarItems.map((item, index) => {
             return (
               <li
                 key={index}
                 className="sidebar-items-item"
-                onClick={handleClick.bind(this)}
+                onClick={handleItemClick.bind(this)}
               >
-                <span className="sidebar-items-item--default">
+                <span
+                  className={
+                    index !== 0
+                      ? 'sidebar-items-item--default'
+                      : 'sidebar-items-item--active'
+                  }
+                >
                   <i className={item.icon} /> {item.title}
                 </span>
               </li>

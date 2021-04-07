@@ -1,13 +1,30 @@
-.home {
-  h1 {
-    margin-bottom: 0;
-  }
-  
-  .emoji {
-    font-size: 4em;
-  }
+@media screen and (max-width: 768px) {
+  .home {
+    width: 100%;
 
-  a {
-    margin-top: 3em;
+    &-content {
+        padding: 0 20px;
+    }
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .home {
+    float: right;
+    width: calc(100% - 250px);
+    
+    &-content {
+        padding: 0 65px;
+    }
+  }
+}
+
+.home {
+  &-content {
+    height: calc(100vh - 65px);
+    max-height: 100vh;
+    transition: all 0.2s ease;
+    background-color: #e8eeec;
+    overflow-y: auto;
   }
 }

@@ -92,9 +92,11 @@ const Auth = ({ authMsg, signup, signin, resetPassword, loading }) => {
               </Input>
 
               {!newUser && (
-                <small className="btn-link" onClick={() => SetReset(true)}>
-                  Forgot password?
-                </small>
+                <div style={{ marginBottom: 20 }}>
+                  <small className="btn-link" onClick={() => SetReset(true)}>
+                    Forgot password?
+                  </small>
+                </div>
               )}
 
               <div style={{ textAlign: 'center' }}>
@@ -119,9 +121,11 @@ const Auth = ({ authMsg, signup, signin, resetPassword, loading }) => {
 
           {reset && (
             <>
-              <small className="btn-link" onClick={() => SetReset(false)}>
-                Back to sign in
-              </small>
+              <div style={{ marginBottom: 20 }}>
+                <small className="btn-link" onClick={() => SetReset(false)}>
+                  Back to sign in
+                </small>
+              </div>
 
               <div style={{ textAlign: 'center' }}>
                 <Button type="submit" className="btn-primary">
@@ -133,7 +137,7 @@ const Auth = ({ authMsg, signup, signin, resetPassword, loading }) => {
         </form>
 
         <footer className="auth-footer">
-          <p>
+          <span>
             {newUser
               ? 'Already have an account? '
               : "Don't have an account yet? "}
@@ -146,7 +150,7 @@ const Auth = ({ authMsg, signup, signin, resetPassword, loading }) => {
             >
               {newUser ? 'Sign in' : 'Create an account'}
             </span>
-          </p>
+          </span>
         </footer>
       </div>
     </div>

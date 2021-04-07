@@ -6,6 +6,8 @@ import charts from 'fusioncharts/fusioncharts.charts'
 import ReactFusioncharts from 'react-fusioncharts'
 // import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
 
+import './chart.scss'
+
 charts(FusionCharts)
 
 export default class Chart extends Component {
@@ -19,16 +21,18 @@ export default class Chart extends Component {
         height: props.height,
         dataFormat: 'json',
       },
-      chartData: props.chart,
+      chartData: props.chartData,
     }
   }
 
   render() {
     return (
-      <ReactFusioncharts
-        {...this.state.chartConfig}
-        dataSource={this.state.chartData}
-      />
+      <div className="chart">
+        <ReactFusioncharts
+          {...this.state.chartConfig}
+          dataSource={this.state.chartData}
+        />
+      </div>
     )
   }
 }
