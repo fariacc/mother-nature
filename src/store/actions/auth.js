@@ -96,7 +96,6 @@ export const signin = (email, password, callback) => async (dispatch) => {
         }
       })
       .catch((error) => {
-        console.log(error)
         dispatch(apiCallError())
         dispatch({
           type: SIGNIN_ERROR,
