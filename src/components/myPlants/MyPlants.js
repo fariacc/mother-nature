@@ -46,15 +46,15 @@ const chartData = {
 }
 
 const MyPlants = ({ authMsg, add, fetch, remove, fetchAll, update }) => {
-  const [selectedOption, setSelectedOption] = useState(false)
+  //   const [selectedOption, setSelectedOption] = useState(false)
   const [plantName, setPlantName] = useState()
   const [plantType, setPlantType] = useState()
   //   const [plants, setPlants] = useState()
   const [loading, setLoading] = useState(false)
 
-  function handleSelectOption(selectedOption) {
-    setSelectedOption(selectedOption)
-  }
+  //   function handleSelectOption(selectedOption) {
+  //     setSelectedOption(selectedOption)
+  //   }
 
   function handleChange(e) {
     if (e.target.name === 'name') {
