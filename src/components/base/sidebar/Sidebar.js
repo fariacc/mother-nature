@@ -36,7 +36,8 @@ const Sidebar = ({ onHandleSelectedItem, className, signout }) => {
   return (
     <aside className={`sidebar ${className}`}>
       <div className="sidebar-content">
-        <div className="sidebar-logo"></div>
+        <i className="fa fa-leaf fa-3x sidebar-logo-icon"></i>
+        <span className="sidebar-logo-title">Mother Nature</span>
         <ul className="sidebar-items">
           {sidebarItems.map((item, index) => {
             return (

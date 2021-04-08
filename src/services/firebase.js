@@ -6,6 +6,8 @@ import firebase from 'firebase/app'
 // We only want to use Firebase Auth here
 import 'firebase/auth'
 
+import 'firebase/database'
+
 // Your app's Firebase configuration
 var firebaseConfig = {
   apiKey: 'AIzaSyAO2R6S5VqgC28SE6Yl8T7AwNRGvUUbgWI',

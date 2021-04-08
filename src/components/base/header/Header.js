@@ -1,28 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import { connect } from 'react-redux'
 
 import './header.scss'
 
-export class Header extends Component {
-  handleMenu = () => {
-    this.props.onHandleMenu()
-  }
-
-  render() {
-    return (
-      <div className="header">
-        {/* <span>{auth.email}</span> */}
-        <div className="header-menu-icon">
-          <i
-            className="fa fa-bars fa-lg"
-            aria-hidden="true"
-            onClick={this.handleMenu}
-          />
-        </div>
+const Header = ({ onHandleMenu, auth }) => {
+  return (
+    <div className="header">
+      <span className="header-username">Welcome, {auth.email}</span>
+      <div className="header-menu-icon">
+        <i
+          className="fa fa-bars fa-lg"
+          aria-hidden="true"
+          onClick={() => onHandleMenu()}
+        />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 function mapStateToProps(state) {

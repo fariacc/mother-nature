@@ -15,7 +15,27 @@
 }
 
 .dashboard {
-    &-cards {
-        width: 100%;
+  &-cards {
+      width: 100%;
+  }
+
+  &-title {
+    font-weight: lighter;
+  }
+
+  &-select {
+    border-radius: 5px;
+    font-size: .8rem;
+
+    &-box__control {
+      &:hover, &--is-focused  {
+        border-color: #075e44!important;
+      } 
+      
+      &--is-focused {
+        outline: none!important;
+        box-shadow: 0 0 0 3px #075e4440!important;
+      }
     }
+  }
 }

@@ -44,7 +44,10 @@ const Auth = ({ authMsg, signup, signin, resetPassword, loading }) => {
   return (
     <div className="auth">
       <div className="auth-container">
-        <h1>Hi there!</h1>
+        <h1>
+          <i className="fa fa-leaf fa-3x"></i>
+          <span>Mother Nature</span>
+        </h1>
         <h2>
           {reset ? 'Reset password' : newUser ? 'Create an account' : 'Sign in'}
         </h2>
