@@ -13,7 +13,7 @@ const sidebarItems = [
   { title: 'History', icon: 'fa fa-history fa-lg' },
 ]
 
-const Sidebar = (props, { signout }) => {
+const Sidebar = ({ onHandleSelectedItem, className, signout }) => {
   const handleItemClick = (e) => {
     const activeElements = document.getElementsByClassName(
       'sidebar-items-item--active'
@@ -30,11 +30,11 @@ const Sidebar = (props, { signout }) => {
     const activeElement = document.getElementsByClassName(
       'sidebar-items-item--active'
     )[0].innerText
-    props.onHandleSelectedItem(activeElement)
+    onHandleSelectedItem(activeElement)
   }
 
   return (
-    <aside className={`sidebar ${props.className}`}>
+    <aside className={`sidebar ${className}`}>
       <div className="sidebar-content">
         <div className="sidebar-logo"></div>
         <ul className="sidebar-items">
