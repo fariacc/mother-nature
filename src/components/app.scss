@@ -1,4 +1,21 @@
 .app {
     min-height: 100vh;
     min-width: 100vw;
+
+    h1 {
+      color: #075e44;
+      font-size: 2rem;
+      font-family: "Capriola", sans-serif;
+      text-align: center;
+      display: grid;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 48px 0;
+    }
+    
+    .subtitle {
+        font-weight: lighter;
+    }
 }

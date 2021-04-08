@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 
 import Header from '../base/header/Header'
 import Sidebar from '../base/sidebar/Sidebar'
-import Dashboard from '../dashboard/Dashboard'
-import MyPlants from '../myPlants/MyPlants'
-import History from '../history/History'
+import Dashboard from './dashboard/Dashboard'
+import MyPlants from './myPlants/MyPlants'
+import History from './history/History'
 
 import './home.scss'
 

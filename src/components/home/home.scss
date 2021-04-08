@@ -3,7 +3,7 @@
     width: 100%;
 
     &-content {
-        padding: 0 20px;
+      padding: 20px;
     }
   }
 }
@@ -14,14 +14,14 @@
     width: calc(100% - 250px);
     
     &-content {
-        padding: 0 40px;
+      padding: 40px 60px;
+      height: calc(100vh - 145px);
     }
   }
 }
 
 .home {
   &-content {
-    height: calc(100vh - 65px);
     max-height: 100vh;
     transition: all 0.2s ease;
     background-color: #e8eeec;

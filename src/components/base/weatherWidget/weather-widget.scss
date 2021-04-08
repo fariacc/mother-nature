@@ -1,3 +1,6 @@
 .weather-widget {
-
+    &--is-loading {
+        padding: 20px;
+        background-color: #075e44;
+    }
 }

@@ -61,7 +61,10 @@ const Sidebar = ({ onHandleSelectedItem, className, signout }) => {
         </ul>
         <div className="sidebar-bottom">
           <li className="sidebar-bottom-item">
-            <Button className="btn-primary btn-light" onClick={() => signout()}>
+            <Button
+              className="btn-primary btn-sidebar"
+              onClick={() => signout()}
+            >
               Log out <i className="fa fa-sign-out fa-lg" />
             </Button>
           </li>

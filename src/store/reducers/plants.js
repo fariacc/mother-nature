@@ -15,7 +15,7 @@ const INITIAL_STATE = {
   authMsg: '',
 }
 
-const plantReduce = (state = INITIAL_STATE, action) => {
+export default function plantReducer(state = INITIAL_STATE, action) {
   if (action.type === FETCH_PLANT_SUCCESS) {
     return { ...state, authMsg: '', plant: action.payload }
   } else if (action.type === FETCH_PLANTS_SUCCESS) {
@@ -35,5 +35,3 @@ const plantReduce = (state = INITIAL_STATE, action) => {
     return state
   }
 }
-
-export default plantReduce

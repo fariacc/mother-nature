@@ -13,6 +13,8 @@ function Input(props) {
         value={props.value}
         placeholder={props.placeholder}
         className={`input ${props.className}`}
+        min={props.min}
+        max={props.max}
         onClick={props.onClick}
         onChange={props.onChange}
         onBlur={props.onBlur}

@@ -10,13 +10,13 @@
   }
 
   &-primary {
-    background-color: #fff;
-    color: #075e44;
     border: 1px solid #075e44;
+    background-color: #075e44;
+    color: #fff;
 
     &:hover {
-      background-color: #075e44;
-      color: #fff;
+      background-color: #fff;
+      color: #075e44;
     }
   }
 
@@ -33,7 +33,11 @@
     }
   }
 
-  &-light {
+  &-sidebar {
+    border: 1px solid #075e44;
+    background-color: #075e44;
+    color: #fff;
+
     &:hover {
       background-color: #4e846d;
       color: #fff;
