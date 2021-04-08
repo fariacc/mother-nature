@@ -70,7 +70,6 @@ const MyPlants = ({ authMsg, add, fetch, remove, fetchAll, update }) => {
       value: plantName,
       type: plantType,
     }
-    console.log(plant)
     add(plant)
     setLoading(false)
     // fetch()
