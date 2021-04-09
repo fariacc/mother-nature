@@ -3,7 +3,7 @@
 </a>
 
 <a href="https://reactjs.org/">
-  <img src="https://mildaintrainings.com/wp-content/uploads/2017/11/react-logo.png" width="135" height="60" />
+  <img src="https://mildaintrainings.com/wp-content/uploads/2017/11/react-logo.png" width="100" height="60" />
 </a>
 
 ### Features included
