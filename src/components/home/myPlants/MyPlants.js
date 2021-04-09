@@ -1,88 +1,76 @@
 import React, { useEffect, useState } from 'react'
 
 import { connect } from 'react-redux'
-import { add, fetchAll } from '../../../store/actions/plants'
+import { add, fetchAll, remove } from '../../../store/actions/plants'
 
-import Chart from '../../base/chart/Chart'
 import Card from '../../base/card/Card'
 import Input from '../../base/input/Input'
 import Button from '../../base/button/Button'
-import Spinner from '../../base/spinner/Spinner'
 
 import './my-plants.scss'
 
-const chartData = {
-  chart: {
-    caption: 'Average Fastball Velocity',
-    yaxisname: 'Velocity (in mph)',
-    subcaption: '[2005-2016]',
-    numbersuffix: ' mph',
-    rotatelabels: '1',
-    setadaptiveymin: '1',
-    theme: 'fusion',
-  },
-  data: [
-    {
-      label: '2005',
-      value: '89.45',
-    },
-    {
-      label: '2006',
-      value: '89.87',
-    },
-    {
-      label: '2007',
-      value: '89.64',
-    },
-    {
-      label: '2008',
-      value: '90.13',
-    },
-    {
-      label: '2009',
-      value: '90.67',
-    },
-  ],
-}
-
-const MyPlants = ({
-  authMsg,
-  plants,
-  add,
-  fetch,
-  remove,
-  fetchAll,
-  update,
-}) => {
+const MyPlants = ({ user, plants, add, remove, fetchAll, update }) => {
   const [plant, setPlant] = useState({
     name: '',
     type: '',
     health: 0,
   })
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
-    fetchAll()
-    setLoading(false)
-  }, [])
+    fetchAll(user)
+  }, [fetchAll, user])
 
   function handleChange(e) {
     setPlant({ ...plant, [e.target.name]: e.target.value })
   }
 
   function handleAddPlant(e) {
-    setLoading(true)
-    add(plant)
-    fetchAll()
+    add(plant, user)
+    fetchAll(user)
     setPlant({ name: '', type: '', health: 0 })
-    setLoading(false)
+  }
+
+  function handleRemovePlant(e) {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('Do you really want to remove this plant?')) {
+      remove(e.target.id, user)
+      fetchAll(user)
+    }
   }
 
   return (
     <div className="my-plants">
-      <h1>My plants</h1>
-      <p className="subtitle">Do you want to add a new plant to the monitor?</p>
+      <div className="dashboard-cards">
+        <Card className="card-center card-green" label="My plants">
+          {plants && plants.length !== 0 ? (
+            <ul className="my-plants-list">
+              {plants.map((plant) => {
+                return (
+                  <li
+                    className="my-plants-list-item"
+                    id={plant.id}
+                    key={plant.id}
+                    onClick={handleRemovePlant.bind(this)}
+                  >
+                    <h3 className="my-plants-list-item-title">{plant.label}</h3>
+                    <p className="my-plants-list-item-description">
+                      Type: {plant.type}
+                    </p>
+                    <p className="my-plants-list-item-description">
+                      Health status: {plant.health}%
+                    </p>
+                  </li>
+                )
+              })}
+            </ul>
+          ) : (
+            <p style={{ padding: '10px 20px' }}>
+              You have no plants registered yet.
+            </p>
+          )}
+        </Card>
+      </div>
+      <p className="subtitle">Do you want to add a new plant to monitor?</p>
       <div>
         <Input
           label="Name"
@@ -119,35 +107,9 @@ const MyPlants = ({
           onChange={handleChange}
         />
 
-        <div>
-          <Button
-            type="submit"
-            className="btn-primary"
-            onClick={handleAddPlant}
-          >
-            {loading ? <Spinner /> : 'Add plant'}
-          </Button>
-        </div>
-      </div>
-
-      <div className="dashboard-cards">
-        <Card className="card-center card-green" label="My plants">
-          {plants && plants.length !== 0 ? (
-            <ul>
-              {plants.map((plant) => {
-                return (
-                  <li key={plant.id}>
-                    <h3>{plant.name}</h3>
-                    <p>Type: {plant.type}</p>
-                    <p>Health status: {plant.health}</p>
-                  </li>
-                )
-              })}
-            </ul>
-          ) : (
-            <p>You have no plants registered yet.</p>
-          )}
-        </Card>
+        <Button type="submit" className="btn-primary" onClick={handleAddPlant}>
+          Add plant
+        </Button>
       </div>
     </div>
   )
@@ -155,14 +117,16 @@ const MyPlants = ({
 
 function mapStateToProps(state) {
   return {
+    user: state.firebaseReducer.auth.uid,
     plants: state.plantReducer.plants,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    add: (plant) => dispatch(add(plant)),
-    fetchAll: () => dispatch(fetchAll()),
+    add: (plantId, user) => dispatch(add(plantId, user)),
+    fetchAll: (user) => dispatch(fetchAll(user)),
+    remove: (plant, user) => dispatch(remove(plant, user)),
   }
 }
 

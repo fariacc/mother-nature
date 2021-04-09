@@ -21,7 +21,10 @@ export default class Chart extends Component {
         height: props.height,
         dataFormat: 'json',
       },
-      chartData: props.chartData,
+      chartData: {
+        chart: props.chartSettings,
+        data: props.chartData,
+      },
     }
   }
 

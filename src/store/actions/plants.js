@@ -3,8 +3,8 @@ import {
   ADD_PLANT_ERROR,
   FETCH_PLANT_SUCCESS,
   FETCH_PLANT_ERROR,
-  //   REMOVE_PLANT_SUCCESS,
-  //   REMOVE_PLANT_ERROR,
+  REMOVE_PLANT_SUCCESS,
+  REMOVE_PLANT_ERROR,
   FETCH_PLANTS_SUCCESS,
   FETCH_PLANTS_ERROR,
   //   UPDATE_PLANT_SUCCESS,
@@ -14,13 +14,18 @@ import { beginApiCall, apiCallError } from './apiStatus'
 import firebase from '../../services/firebase'
 
 // adding a new plant
-export const add = (plant) => async (dispatch) => {
+export const add = (plant, user) => async (dispatch) => {
   try {
     dispatch(beginApiCall())
     firebase
       .database()
-      .ref('plants')
-      .push(plant)
+      .ref(`${user}/plants`)
+      .push({
+        name: plant.name,
+        value: plant.name.toLowerCase(),
+        type: plant.type,
+        health: plant.health,
+      })
       .then(() => {
         // Adding a new plant was successful
         dispatch({
@@ -46,12 +51,12 @@ export const add = (plant) => async (dispatch) => {
 }
 
 // fetching plants from database
-export const fetchAll = () => async (dispatch) => {
+export const fetchAll = (user) => async (dispatch) => {
   try {
     dispatch(beginApiCall())
     firebase
       .database()
-      .ref('plants')
+      .ref(`${user}/plants`)
       .on(
         'value',
         function (snapshot) {
@@ -60,7 +65,8 @@ export const fetchAll = () => async (dispatch) => {
             const plantValues = plant.val()
             plants.push({
               id: plant.key,
-              name: plantValues.name,
+              label: plantValues.name,
+              value: plantValues.name,
               type: plantValues.type,
               health: plantValues.health,
             })
@@ -74,7 +80,7 @@ export const fetchAll = () => async (dispatch) => {
           dispatch({
             type: FETCH_PLANTS_ERROR,
             payload:
-              "Something went wrong, we couldn't create your account. Please try again",
+              "Something went wrong, we couldn't get all your plants. Please try again",
           })
         }
       )
@@ -83,31 +89,32 @@ export const fetchAll = () => async (dispatch) => {
     dispatch({
       type: FETCH_PLANTS_ERROR,
       payload:
-        "Something went wrong, we couldn't create your account. Please try again",
+        "Something went wrong, we couldn't get all your plants. Please try again",
     })
   }
 }
 
 // fetching a specific plant from database
-export const fetch = () => async (dispatch) => {
+export const fetch = (plantId, userId) => async (dispatch) => {
   try {
     dispatch(beginApiCall())
     firebase
       .database()
-      .ref('plants')
+      .ref(`${userId}/plants/${plantId}`)
       .on(
         'value',
         function (snapshot) {
+          const plant = snapshot.val()
           dispatch({
             type: FETCH_PLANT_SUCCESS,
-            payload: snapshot.val(),
+            payload: plant,
           })
         },
         function () {
           dispatch({
             type: FETCH_PLANT_ERROR,
             payload:
-              "Something went wrong, we couldn't create your account. Please try again",
+              "Something went wrong, we couldn't get the data on this plant. Please try again",
           })
         }
       )
@@ -116,7 +123,38 @@ export const fetch = () => async (dispatch) => {
     dispatch({
       type: FETCH_PLANT_ERROR,
       payload:
-        "Something went wrong, we couldn't create your account. Please try again",
+        "Something went wrong, we couldn't get the data on this plant. Please try again",
+    })
+  }
+}
+
+export const remove = (plantId, userId) => async (dispatch) => {
+  try {
+    dispatch(beginApiCall())
+    firebase
+      .database()
+      .ref(`${userId}/plants/${plantId}`)
+      .remove()
+      .then(() => {
+        // Removing the plant was successful
+        dispatch({
+          type: REMOVE_PLANT_SUCCESS,
+          payload: 'The plant was successfully removed',
+        })
+      })
+      .catch(() => {
+        dispatch({
+          type: REMOVE_PLANT_ERROR,
+          payload:
+            "Something went wrong, we couldn't remove this plant. Please try again",
+        })
+      })
+  } catch (err) {
+    dispatch(apiCallError())
+    dispatch({
+      type: REMOVE_PLANT_ERROR,
+      payload:
+        "Something went wrong, we couldn't remove this plant. Please try again",
     })
   }
 }
