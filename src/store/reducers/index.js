@@ -7,6 +7,6 @@ import apiStatusReducer from './apiStatus'
 export default combineReducers({
   firebaseReducer,
   authReducer,
-  apiStatusReducer,
   plantReducer,
+  apiStatusReducer,
 })

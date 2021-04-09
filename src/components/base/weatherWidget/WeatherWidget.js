@@ -1,38 +1,55 @@
-import React, { useState } from 'react'
-import ReactWeather, { useOpenWeather } from 'react-open-weather'
+import React, { Component } from 'react'
+import axios from 'axios'
 
-import Loader from '../loader/Loader'
+class WeatherWidget extends Component {
+  constructor(props) {
+    super(props)
 
-const WeatherWidget = () => {
-  const [latitude, SetLatitude] = useState()
-  const [longitude, SetLongitude] = useState()
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: [],
+      geolocation: {
+        latitude: '',
+        longitude: '',
+      },
+    }
+  }
 
-  navigator.geolocation.getCurrentPosition(function (position) {
-    SetLatitude(position.coords.latitude)
-    SetLongitude(position.coords.longitude)
-  })
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async function (position) {
+        var latitude = position.coords.latitude
+        var longitude = position.coords.longitude
 
-  const { data, isLoading } = useOpenWeather({
-    key: '8c220c5fa236b4413e25854b3a34205c',
-    lat: latitude,
-    lon: longitude,
-    lang: 'en',
-    unit: 'metric',
-  })
+        const result = await axios(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=8c220c5fa236b4413e25854b3a34205c`
+        )
+        console.log(result.data)
+      })
+    }
+  }
 
-  return (
-    <div className="weather-widget">
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <ReactWeather
-          className="weather-widget__item"
-          data={data}
-          showForecast
-        />
-      )}
-    </div>
-  )
+  render() {
+    return (
+      <div>
+        {/* <p>
+        Conditions: {this.props.weatherData.weather[0].main} -{' '}
+        {this.props.weatherData.weather[0].description}
+      </p>
+      <p>Temperature: {this.props.weatherData.main.temp} °F</p>
+      <p>
+        Min temperature: {Math.round(this.props.weatherData.main.temp_min)} °F
+      </p>
+      <p>
+        Max temperature: {Math.round(this.props.weatherData.main.temp_max)} °F
+      </p>
+      <p>Feels like: {Math.round(this.props.weatherData.main.feels_like)} °F</p>
+      <p>Pressure: {this.props.weatherData.main.pressure} hpa</p>
+      <p>Humidity: {this.props.weatherData.main.humidity} %</p> */}
+      </div>
+    )
+  }
 }
 
 export default WeatherWidget

@@ -104,7 +104,7 @@ export const fetch = (plantId, userId) => async (dispatch) => {
       .on(
         'value',
         function (snapshot) {
-          const plant = snapshot.val()
+          const plant = [snapshot.val()]
           dispatch({
             type: FETCH_PLANT_SUCCESS,
             payload: plant,

@@ -1,92 +1,76 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { connect } from 'react-redux'
 import { fetch, fetchAll } from '../../../store/actions/plants'
 
 import Card from '../../base/card/Card'
-// import Chart from '../../base/chart/Chart'
+import Chart from '../../base/chart/Chart'
 import WeatherWidget from '../../base/weatherWidget/WeatherWidget'
+import Select from 'react-select'
 
 import './dashboard.scss'
 
-const Dashboard = ({ plants, fetch, fetchAll, user }) => {
-  // const [chartSpecificPlantHistorySettings] = useState({
-  //   chart: {
-  //     caption: 'Specific plant history',
-  //     yaxisname: 'Soil moisture',
-  //     numbersuffix: ' %',
-  //     rotatelabels: '1',
-  //     setadaptiveymin: '1',
-  //     theme: 'fusion',
-  //   },
-  // })
+const Dashboard = ({ plant, fetch, plants, fetchAll, user }) => {
+  let [specificPlant, setSpecificPlant] = useState([])
+
+  const chartSpecificPlantHistorySettings = {
+    chart: {
+      caption: 'Plant history',
+      yaxisname: 'Soil moisture',
+      numbersuffix: ' %',
+      rotatelabels: '1',
+      setadaptiveymin: '1',
+      theme: 'fusion',
+    },
+  }
 
   useEffect(() => {
     fetchAll(user)
-  }, [fetchAll, user])
+    setSpecificPlant(plant)
+  }, [fetchAll, plant, user])
 
-  function handleSelectOption(plantId) {
+  function handleSelectOption(selectedPlant) {
+    const plantId = selectedPlant.id
     fetch(plantId, user)
   }
 
   return (
     <div className="dashboard">
-      <h1>Dashboard</h1>
+      <h1>DASHBOARD</h1>
+      <h2>Here you can check how your plants are doing</h2>
       <div className="dashboard-cards">
         <Card className="card-center card-green" label="Plants information">
           {plants && plants.length !== 0 ? (
-            <>
-              <p className="card-subtitle">
-                Select the plant you want to get info about
-              </p>
-              <ul className="my-plants-list">
-                {plants.map((plant) => {
-                  return (
-                    <li
-                      className="my-plants-list-item"
-                      id={plant.id}
-                      key={plant.id}
-                      onClick={() => handleSelectOption(plant.id)}
-                    >
-                      <h3 className="my-plants-list-item-title">
-                        {plant.label}
-                      </h3>
-                      <p className="my-plants-list-item-description">
-                        Type: {plant.type}
-                      </p>
-                      <p className="my-plants-list-item-description">
-                        Health status: {plant.health}%
-                      </p>
-                    </li>
-                  )
-                })}
-              </ul>
-            </>
+            <Select
+              placeholder="Select the plant you want to get information about"
+              options={plants}
+              onChange={handleSelectOption}
+            />
           ) : (
             <p style={{ padding: '10px 20px' }}>
               You have no plants registered yet.
             </p>
           )}
-          {/* <Chart
-            type="line"
-            width="25%"
-            height="400"
-            dataFormat="JSON"
-            chartData={plants.map((plant) => {
-              return {
-                label: plant.label,
-                value: plant.health,
-              }
-            })}
-            chartSettings={chartSpecificPlantHistorySettings}
-          /> */}
+          {specificPlant && specificPlant.length !== 0 && (
+            <Chart
+              key={specificPlant[0].id}
+              type="line"
+              width="25%"
+              height="400"
+              dataFormat="JSON"
+              chartData={specificPlant.map((plant) => {
+                return {
+                  label: plant.name,
+                  value: plant.health,
+                }
+              })}
+              chartSettings={chartSpecificPlantHistorySettings}
+            />
+          )}
         </Card>
       </div>
-      <p className="subtitle">
-        Here's the weather right now and the forecaster for the next days
-      </p>
+      <h2>Here's the weather now and the forecaster for the next days</h2>
       <div className="dashboard-cards">
-        {}
         <Card className="card-center">
           <WeatherWidget />
         </Card>

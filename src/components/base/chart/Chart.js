@@ -3,12 +3,12 @@ import React, { Component } from 'react'
 
 import FusionCharts from 'fusioncharts'
 import charts from 'fusioncharts/fusioncharts.charts'
-import ReactFusioncharts from 'react-fusioncharts'
-// import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
+import ReactFC from 'react-fusioncharts'
+import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
 
 import './chart.scss'
 
-charts(FusionCharts)
+ReactFC.fcRoot(FusionCharts, charts, FusionTheme)
 
 export default class Chart extends Component {
   constructor(props) {
@@ -21,19 +21,18 @@ export default class Chart extends Component {
         height: props.height,
         dataFormat: 'json',
       },
-      chartData: {
-        chart: props.chartSettings,
-        data: props.chartData,
-      },
     }
   }
 
   render() {
     return (
       <div className="chart">
-        <ReactFusioncharts
+        <ReactFC
           {...this.state.chartConfig}
-          dataSource={this.state.chartData}
+          dataSource={{
+            ...this.props.chartSettings,
+            data: this.props.chartData,
+          }}
         />
       </div>
     )

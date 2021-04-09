@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { connect } from 'react-redux'
 import { fetchAll } from '../../../store/actions/plants'
@@ -9,56 +9,41 @@ import Card from '../../base/card/Card'
 import './history.scss'
 
 const History = ({ user, plants, fetchAll }) => {
-  const [chartPlantsHistorySettings] = useState({
+  const chartPlantsHistorySettings = {
     chart: {
-      caption: 'Plant history',
+      caption: 'All plants history',
       yaxisname: 'Soil moisture',
       numbersuffix: ' %',
       rotatelabels: '1',
       setadaptiveymin: '1',
       theme: 'fusion',
     },
-  })
+  }
 
   useEffect(() => {
     fetchAll(user)
   }, [fetchAll, user])
 
-  // const chartPlantsHistory = {
-  //   chart: {
-  //     caption: 'Plant history',
-  //     yaxisname: 'Soil moisture',
-  //     numbersuffix: ' %',
-  //     rotatelabels: '1',
-  //     setadaptiveymin: '1',
-  //     theme: 'fusion',
-  //   },
-  //   data: plants.map((plant) => {
-  //     return {
-  //       label: plant.label,
-  //       value: plant.health,
-  //     }
-  //   }),
-  // }
-
   return (
     <div className="my-plants">
       <div className="dashboard-cards">
-        <Card className="card-center card-green" label="History">
+        <Card className="card-center card-green" label="History of all plants">
           {plants && plants.length !== 0 ? (
-            <Chart
-              type="line"
-              width="25%"
-              height="400"
-              dataFormat="JSON"
-              chartData={plants.map((plant) => {
-                return {
-                  label: plant.label,
-                  value: plant.health,
-                }
-              })}
-              chartSettings={chartPlantsHistorySettings}
-            />
+            <>
+              <Chart
+                type="line"
+                width="25%"
+                height="400"
+                dataFormat="JSON"
+                chartData={plants.map((plant) => {
+                  return {
+                    label: plant.label,
+                    value: plant.health,
+                  }
+                })}
+                chartSettings={chartPlantsHistorySettings}
+              />
+            </>
           ) : (
             <p style={{ padding: '10px 20px' }}>
               You have no plants registered yet.
