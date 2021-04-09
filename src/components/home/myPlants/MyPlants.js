@@ -30,10 +30,10 @@ const MyPlants = ({ user, plants, add, remove, fetchAll, update }) => {
     setPlant({ name: '', type: '', health: 0 })
   }
 
-  function handleRemovePlant(e) {
+  function handleRemovePlant(plantId) {
     // eslint-disable-next-line no-restricted-globals
     if (confirm('Do you really want to remove this plant?')) {
-      remove(e.target.id, user)
+      remove(plantId, user)
       fetchAll(user)
     }
   }
@@ -50,7 +50,7 @@ const MyPlants = ({ user, plants, add, remove, fetchAll, update }) => {
                     className="my-plants-list-item"
                     id={plant.id}
                     key={plant.id}
-                    onClick={handleRemovePlant.bind(this)}
+                    onClick={() => handleRemovePlant(plant.id)}
                   >
                     <h3 className="my-plants-list-item-title">{plant.label}</h3>
                     <p className="my-plants-list-item-description">
