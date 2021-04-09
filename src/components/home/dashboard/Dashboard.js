@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { connect } from 'react-redux'
 import { fetch, fetchAll } from '../../../store/actions/plants'
 
 import Card from '../../base/card/Card'
-import Chart from '../../base/chart/Chart'
+// import Chart from '../../base/chart/Chart'
 import WeatherWidget from '../../base/weatherWidget/WeatherWidget'
 
 import './dashboard.scss'
 
-const Dashboard = ({ plants, fetch, fetchAll, user, plant }) => {
+const Dashboard = ({ plants, fetch, fetchAll, user }) => {
   // const [chartSpecificPlantHistorySettings] = useState({
   //   chart: {
   //     caption: 'Specific plant history',
