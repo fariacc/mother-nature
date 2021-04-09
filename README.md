@@ -12,34 +12,18 @@
 - Redirecting after sign in
 - Persisting auth status
 - Restricting access according to auth status
-- Loader
+- Adding/Removing/Updating plants
+- Chart with plants history
 
 ### Project setup
 
-1. Create a [Firebase account](https://firebase.google.com/).
-2. Create a new project to get your firebaseConfig object.
-3. Activate Firebase Authentication from your Firebase console.
-4. Get the code from this repo, cd in the project folder and install all dependencies :
+1. Go to this project folder and install all dependencies:
 
 ```
 npm install
 ```
 
-5. In the services/firebase.js file, insert your own firebaseConfig object :
-
-```
-var firebaseConfig = {
-  apiKey: "[YOUR_API_KEY]",
-  authDomain: "[YOUR_FIREBASE_AUTH_DOMAIN]",
-  databaseURL: "[YOUR_FIREBASE_DATABASE_URL]",
-  projectId: "[YOUR_FIREBASE_PROJECT_ID]",
-  storageBucket: "",
-  messagingSenderId: "[YOUR_FIREBASE_MESSAGING_SENDER_ID]",
-  appId: "[YOUR_FIREBASE_APP_ID]"
-};
-```
-
-6. Run the app in the development mode:
+2. Run the app in the development mode:
 
 ```
 npm start
