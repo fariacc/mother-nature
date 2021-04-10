@@ -1,6 +1,14 @@
+@media screen and (max-width: 768px) {
+    .sidebar {
+        &-hidden {
+            width: 0;
+        }
+    }
+}
+
 .sidebar {
     left: 0;
-    position: absolute;
+    position: fixed;
     overflow: hidden;
     z-index: 1;
     transition: all .2s ease;
@@ -80,10 +88,6 @@
         margin-bottom: 15px;
         position: relative;
         text-align: center;
-    }
-
-    &-hidden {
-        width: 0;
     }
 
     &-default {
