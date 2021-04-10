@@ -11,6 +11,22 @@
     &-cards {
       display: inline-flex;
     }
+
+    .my-plant {
+      &-info {
+        display: inline-flex;
+        width: 100%;
+        flex-wrap: wrap;
+
+        .chart {
+            width: calc(70% - 30px);
+        }
+      }
+
+      &-update {
+        width: calc(30% - 40px);
+      }
+    }
   }
 }
 
@@ -32,6 +48,12 @@
         outline: none!important;
         box-shadow: 0 0 0 3px #075e4440!important;
       }
+    }
+  }
+
+  .my-plant {
+    &-update {
+      padding: 20px;
     }
   }
 }

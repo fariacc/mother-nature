@@ -10,7 +10,6 @@ import './sidebar.scss'
 const sidebarItems = [
   { title: 'Dashboard', icon: 'fa fa-home fa-lg' },
   { title: 'My plants', icon: 'fa fa-pagelines fa-lg' },
-  { title: 'History', icon: 'fa fa-history fa-lg' },
 ]
 
 const Sidebar = ({ onHandleSelectedItem, className, signout }) => {

@@ -27,7 +27,11 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
   function handleAddPlant(e) {
     add(plant, user)
     fetchAll(user)
-    setPlant({ name: '', type: '', health: 0 })
+    setPlant({
+      name: '',
+      type: '',
+      health: 0,
+    })
   }
 
   function handleRemovePlant(plantId) {
@@ -63,7 +67,8 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
                         Type: {plant.type}
                       </p>
                       <p className="my-plants-list-item-description">
-                        Health status: {plant.health}%
+                        Health status:{' '}
+                        {plant.status[[plant.status.length - 1]].health}%
                       </p>
                     </li>
                   )

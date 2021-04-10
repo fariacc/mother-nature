@@ -35,9 +35,9 @@ const Dashboard = ({
 
   const chartSpecificPlantHistorySettings = {
     chart: {
-      caption: 'Plant history',
+      caption: 'History of specific plant',
       yaxisname: 'Soil moisture',
-      numbersuffix: ' %',
+      numbersuffix: '%',
       rotatelabels: '1',
       setadaptiveymin: '1',
       theme: 'fusion',
@@ -82,63 +82,64 @@ const Dashboard = ({
             <p className="card-subtitle">You have no plants registered yet.</p>
           )}
           {plant && plant.length !== 0 && (
-            <div className="my-plants-update">
-              <Input
-                label="Name"
-                type="text"
-                className="input--default"
-                id="name"
-                name="name"
-                value={plant[0].name}
-                placeholder="Name"
-                disabled
-              />
-
-              <Input
-                label="Type"
-                type="text"
-                className="input--default"
-                id="type"
-                name="type"
-                value={plant[0].type}
-                placeholder="Type"
-                disabled
-              />
-
-              <Input
-                label="Health status"
-                type="number"
-                className="input--default"
-                id="health"
-                min="0"
-                max="100"
-                name="health"
-                value={specificPlant[0].health}
-                placeholder="Health status, from 0 to 100"
-                onChange={handleChange}
-              />
-
-              <Button
-                type="submit"
-                className="btn-primary"
-                onClick={() => handleUpdatePlant(plant[0])}
-              >
-                Update health status
-              </Button>
-
+            <div className="my-plant-info">
               <Chart
                 type="line"
-                width="25%"
+                width="100%"
                 height="400"
                 dataFormat="JSON"
-                chartData={plant.map((item) => {
+                chartData={plant[0].status.map((item) => {
                   return {
-                    label: item.name,
+                    label: item.date,
                     value: item.health,
                   }
                 })}
                 chartSettings={chartSpecificPlantHistorySettings}
               />
+              <div className="my-plant-update">
+                <Input
+                  label="Name"
+                  type="text"
+                  className="input--default"
+                  id="name"
+                  name="name"
+                  value={plant[0].name}
+                  placeholder="Name"
+                  disabled
+                />
+
+                <Input
+                  label="Type"
+                  type="text"
+                  className="input--default"
+                  id="type"
+                  name="type"
+                  value={plant[0].type}
+                  placeholder="Type"
+                  disabled
+                />
+
+                <Input
+                  label="Health status"
+                  type="number"
+                  className="input--default"
+                  id="health"
+                  min="0"
+                  max="100"
+                  name="health"
+                  value={specificPlant[0].health}
+                  placeholder="Health status, from 0 to 100"
+                  onChange={handleChange}
+                />
+
+                <Button
+                  type="submit"
+                  className="btn-primary"
+                  onClick={() => handleUpdatePlant(plant[0])}
+                >
+                  Update health status
+                </Button>
+              </div>
             </div>
           )}
         </Card>

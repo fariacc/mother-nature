@@ -13,6 +13,17 @@ import {
 import { beginApiCall, apiCallError } from './apiStatus'
 import firebase from '../../services/firebase'
 
+function getDateTime() {
+  let day = new Date().getDate()
+  let month = new Date().getMonth() + 1
+  let year = new Date().getFullYear()
+  let hours = new Date().getHours()
+  let minutes = new Date().getMinutes()
+  let seconds = new Date().getSeconds()
+  let datetime = `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`
+  return datetime
+}
+
 // adding a new plant
 export const add = (plant, user) => async (dispatch) => {
   try {
@@ -24,7 +35,12 @@ export const add = (plant, user) => async (dispatch) => {
         name: plant.name,
         value: plant.name.toLowerCase(),
         type: plant.type,
-        health: plant.health,
+        status: [
+          {
+            health: plant.health,
+            date: getDateTime(),
+          },
+        ],
       })
       .then(() => {
         // Adding a new plant was successful
@@ -68,7 +84,7 @@ export const fetchAll = (user) => async (dispatch) => {
               label: plantValues.name,
               value: plantValues.name,
               type: plantValues.type,
-              health: plantValues.health,
+              status: plantValues.status,
             })
           })
           dispatch({
@@ -111,7 +127,7 @@ export const fetch = (plantId, userId) => async (dispatch) => {
               name: item.name,
               value: item.name,
               type: item.type,
-              health: item.health,
+              status: item.status,
             }
           })
           dispatch({
@@ -174,7 +190,16 @@ export const update = (plant, userId) => async (dispatch) => {
     firebase
       .database()
       .ref(`${userId}/plants/${plant.id}`)
-      .update({ health: plant.health })
+      .update({
+        ...plant,
+        status: [
+          ...plant.status,
+          {
+            health: plant.health,
+            date: getDateTime(),
+          },
+        ],
+      })
       .then(() => {
         // Updating the plant was successful
         dispatch({

@@ -4,7 +4,6 @@ import Header from '../base/header/Header'
 import Sidebar from '../base/sidebar/Sidebar'
 import Dashboard from './dashboard/Dashboard'
 import MyPlants from './myPlants/MyPlants'
-import History from './history/History'
 
 import './home.scss'
 
@@ -50,7 +49,6 @@ class Home extends Component {
         <div className="home-content">
           {this.state.currentLocation === 'Dashboard' && <Dashboard />}
           {this.state.currentLocation === 'My plants' && <MyPlants />}
-          {this.state.currentLocation === 'History' && <History />}
         </div>
       </div>
     )
