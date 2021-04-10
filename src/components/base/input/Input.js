@@ -15,6 +15,7 @@ function Input(props) {
         className={`input ${props.className}`}
         min={props.min}
         max={props.max}
+        disabled={props.disabled}
         onClick={props.onClick}
         onChange={props.onChange}
         onBlur={props.onBlur}

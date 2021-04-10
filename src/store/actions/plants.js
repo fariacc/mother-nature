@@ -7,8 +7,8 @@ import {
   REMOVE_PLANT_ERROR,
   FETCH_PLANTS_SUCCESS,
   FETCH_PLANTS_ERROR,
-  //   UPDATE_PLANT_SUCCESS,
-  //   UPDATE_PLANT_ERROR,
+  UPDATE_PLANT_SUCCESS,
+  UPDATE_PLANT_ERROR,
 } from './actionTypes'
 import { beginApiCall, apiCallError } from './apiStatus'
 import firebase from '../../services/firebase'
@@ -104,7 +104,16 @@ export const fetch = (plantId, userId) => async (dispatch) => {
       .on(
         'value',
         function (snapshot) {
-          const plant = [snapshot.val()]
+          let plant = [snapshot.val()]
+          plant = plant.map((item) => {
+            return {
+              id: plantId,
+              name: item.name,
+              value: item.name,
+              type: item.type,
+              health: item.health,
+            }
+          })
           dispatch({
             type: FETCH_PLANT_SUCCESS,
             payload: plant,
@@ -155,6 +164,37 @@ export const remove = (plantId, userId) => async (dispatch) => {
       type: REMOVE_PLANT_ERROR,
       payload:
         "Something went wrong, we couldn't remove this plant. Please try again",
+    })
+  }
+}
+
+export const update = (plant, userId) => async (dispatch) => {
+  try {
+    dispatch(beginApiCall())
+    firebase
+      .database()
+      .ref(`${userId}/plants/${plant.id}`)
+      .update({ health: plant.health })
+      .then(() => {
+        // Updating the plant was successful
+        dispatch({
+          type: UPDATE_PLANT_SUCCESS,
+          payload: 'The plant was successfully updated!',
+        })
+      })
+      .catch(() => {
+        dispatch({
+          type: UPDATE_PLANT_ERROR,
+          payload:
+            "Something went wrong, we couldn't update this plant. Please try again",
+        })
+      })
+  } catch (err) {
+    dispatch(apiCallError())
+    dispatch({
+      type: UPDATE_PLANT_ERROR,
+      payload:
+        "Something went wrong, we couldn't update this plant. Please try again",
     })
   }
 }

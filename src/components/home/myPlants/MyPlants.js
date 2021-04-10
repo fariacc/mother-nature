@@ -9,7 +9,7 @@ import Button from '../../base/button/Button'
 
 import './my-plants.scss'
 
-const MyPlants = ({ user, plants, add, remove, fetchAll, update }) => {
+const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
   const [plant, setPlant] = useState({
     name: '',
     type: '',
@@ -43,35 +43,40 @@ const MyPlants = ({ user, plants, add, remove, fetchAll, update }) => {
       <div className="dashboard-cards">
         <Card className="card-center card-green" label="My plants">
           {plants && plants.length !== 0 ? (
-            <ul className="my-plants-list">
-              {plants.map((plant) => {
-                return (
-                  <li
-                    className="my-plants-list-item"
-                    id={plant.id}
-                    key={plant.id}
-                    onClick={() => handleRemovePlant(plant.id)}
-                  >
-                    <h3 className="my-plants-list-item-title">{plant.label}</h3>
-                    <p className="my-plants-list-item-description">
-                      Type: {plant.type}
-                    </p>
-                    <p className="my-plants-list-item-description">
-                      Health status: {plant.health}%
-                    </p>
-                  </li>
-                )
-              })}
-            </ul>
+            <>
+              <p className="card-subtitle">
+                You can choose a plant to remove by clicking on it
+              </p>
+              <ul className="my-plants-list">
+                {plants.map((plant) => {
+                  return (
+                    <li
+                      className="my-plants-list-item"
+                      id={plant.id}
+                      key={plant.id}
+                      onClick={() => handleRemovePlant(plant.id)}
+                    >
+                      <h3 className="my-plants-list-item-title">
+                        {plant.label}
+                      </h3>
+                      <p className="my-plants-list-item-description">
+                        Type: {plant.type}
+                      </p>
+                      <p className="my-plants-list-item-description">
+                        Health status: {plant.health}%
+                      </p>
+                    </li>
+                  )
+                })}
+              </ul>
+            </>
           ) : (
-            <p style={{ padding: '10px 20px' }}>
-              You have no plants registered yet.
-            </p>
+            <p className="card-subtitle">You have no plants registered yet.</p>
           )}
         </Card>
       </div>
       <p className="subtitle">Do you want to add a new plant to monitor?</p>
-      <div>
+      <div className="my-plants-add">
         <Input
           label="Name"
           type="text"
