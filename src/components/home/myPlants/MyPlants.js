@@ -76,9 +76,7 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
         <Card className="card-center card-green" label="Monitored plants">
           {plants && plants.length !== 0 ? (
             <>
-              <p className="card-subtitle">
-                You can choose a plant to remove by clicking on it
-              </p>
+              <p>You can choose a plant to remove by clicking on it</p>
               <ul className="my-plants-list">
                 {plants.map((plant) => {
                   return (
@@ -104,7 +102,7 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
               </ul>
             </>
           ) : (
-            <p className="card-subtitle">You have no plants registered yet.</p>
+            <p>You have no plants registered yet.</p>
           )}
         </Card>
       </div>
