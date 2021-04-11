@@ -21,10 +21,10 @@ $bounce_height: 30px;
 
 .loader {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  .loader-bounceball {
+
+  &-bounceball {
     position: relative;
     display: inline-block;
     height: 37px;
@@ -37,13 +37,14 @@ $bounce_height: 30px;
       width: $width;
       height: $height;
       border-radius: 50%;
-      background-color: #29b1cc;
+      background-color: #075e44;
       transform-origin: 50%;
       animation: bounce 500ms alternate infinite ease;
     }
   }
-  .loader-text {
-    color: #29b1cc;
+
+  &-text {
+    color: #075e44;
     display: inline-block;
     margin-left: 1em;
   }

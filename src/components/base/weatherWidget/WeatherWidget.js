@@ -14,13 +14,15 @@ const WeatherWidget = (props) => {
   })
 
   return (
-    <ReactWeather
-      data={data}
-      lang="en"
-      locationLabel={props.data.name}
-      unitsLabels={{ temperature: 'ºC', windSpeed: 'Km/h' }}
-      showForecast
-    />
+    <div className="weather-widget">
+      <ReactWeather
+        data={data}
+        lang="en"
+        locationLabel={props.data.name}
+        unitsLabels={{ temperature: 'ºC', windSpeed: 'Km/h' }}
+        showForecast
+      />
+    </div>
   )
 }
 

@@ -10,7 +10,7 @@ function Card(props) {
           <p className={`card-label ${props.className}-label`}>{props.label}</p>
         </div>
       )}
-      {props.children}
+      <div className="card-body">{props.children}</div>
     </div>
   )
 }

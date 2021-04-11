@@ -3,7 +3,8 @@
     width: 100%;
 
     &-content {
-      padding: 20px;
+      padding: 20px 30px;
+      min-height: calc(100vh - 65px);
     }
   }
 }

@@ -19,12 +19,12 @@
         flex-wrap: wrap;
 
         .chart {
-            width: calc(70% - 30px);
+            width: 70%;
         }
       }
 
       &-update {
-        width: calc(30% - 40px);
+        width: calc(30% - 10px);
       }
     }
   }
@@ -53,7 +53,7 @@
 
   .my-plant {
     &-update {
-      padding: 20px;
+      padding: 20px 10px 20px 0;
     }
   }
 }

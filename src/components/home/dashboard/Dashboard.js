@@ -35,8 +35,9 @@ const Dashboard = ({
 
   const chartSpecificPlantHistorySettings = {
     chart: {
-      caption: 'History of specific plant',
-      yaxisname: 'Soil moisture',
+      caption: 'Health history of plant',
+      xaxisname: 'Date of registration',
+      yaxisname: 'Health status',
       numbersuffix: '%',
       rotatelabels: '1',
       setadaptiveymin: '1',
@@ -69,9 +70,9 @@ const Dashboard = ({
   return (
     <div className="dashboard">
       <h1>DASHBOARD</h1>
-      <h2>Here you can check how your plants are doing</h2>
+      <h2>Check how your plants are doing</h2>
       <div className="dashboard-cards">
-        <Card className="card-center card-green" label="Plants information">
+        <Card className="card-center card-green" label="Plant information">
           {plants && plants.length !== 0 ? (
             <Select
               placeholder="Select the plant you want to get information about"
@@ -83,19 +84,6 @@ const Dashboard = ({
           )}
           {plant && plant.length !== 0 && (
             <div className="my-plant-info">
-              <Chart
-                type="line"
-                width="100%"
-                height="400"
-                dataFormat="JSON"
-                chartData={plant[0].status.map((item) => {
-                  return {
-                    label: item.date,
-                    value: item.health,
-                  }
-                })}
-                chartSettings={chartSpecificPlantHistorySettings}
-              />
               <div className="my-plant-update">
                 <Input
                   label="Name"
@@ -140,20 +128,33 @@ const Dashboard = ({
                   Update health status
                 </Button>
               </div>
+              <Chart
+                type="line"
+                width="100%"
+                height="400"
+                dataFormat="JSON"
+                chartData={plant[0].status.map((item) => {
+                  return {
+                    label: item.date,
+                    value: item.health,
+                  }
+                })}
+                chartSettings={chartSpecificPlantHistorySettings}
+              />
             </div>
           )}
         </Card>
       </div>
-      <h2>Here's the weather now and the forecaster for the next days</h2>
-      <div className="dashboard-cards">
-        <Card className="card-center">
-          {weatherData === undefined ? (
-            <Loader />
-          ) : (
+      {navigator.geolocation && weatherData === undefined ? (
+        <Loader />
+      ) : (
+        <>
+          <h2>Weather and forecaster for the next days</h2>
+          <div className="dashboard-cards">
             <WeatherWidget data={weatherData} />
-          )}
-        </Card>
-      </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }

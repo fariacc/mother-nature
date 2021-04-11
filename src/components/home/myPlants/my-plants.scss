@@ -1,38 +1,38 @@
 .my-plants {
-    &-list {
-        list-style: none;
-        padding: 10px 30px;
-        margin: 0;
+  &-list {
+    list-style: none;
+    padding: 10px 30px;
+    margin: 0;
 
-        &-item {
-            padding: 20px;
-            margin: 10px;
-            box-shadow: 0px 0px 10px 0px rgb(34 42 69 / 20%);
-            
-            &:hover {
-              cursor: pointer;
-            }
+    &-item {
+      padding: 20px;
+      margin: 10px;
+      box-shadow: 0px 0px 10px 0px rgb(34 42 69 / 20%);
+      
+      &:hover {
+        cursor: pointer;
+      }
 
-            &-title {
-                margin-top: 5px;
-            }
+      &-title {
+          margin-top: 5px;
+      }
 
-            &-description {
-                margin: 5px 0;
-            }
-        }
+      &-description {
+          margin: 5px 0;
+      }
     }
+  }
+
+  &-add {
+    padding: 20px 10px 20px 0;
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .my-plants {
     &-list {
-        display: block;
-        padding: 10px 20px;
-
-        &-item {
-            margin: 20px 0;
-        }
+      display: block;
+      padding: 10px 20px;
     }
   }
 }
@@ -40,10 +40,24 @@
 @media screen and (min-width: 1025px) {
   .my-plants {
     &-list {
-        display: inline-flex;
-        width: -webkit-fill-available;
-        justify-content: center;
-        flex-wrap: wrap;
+      display: inline-flex;
+      width: -webkit-fill-available;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    &-info {
+      display: inline-flex;
+      width: 100%;
+      flex-wrap: wrap;
+
+      .chart {
+          width: 70%;
+      }
+    }
+
+    &-add {
+      width: calc(30% - 10px);
     }
   }
 }

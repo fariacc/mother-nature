@@ -4,16 +4,29 @@ import { connect } from 'react-redux'
 import { add, fetchAll, remove } from '../../../store/actions/plants'
 
 import Card from '../../base/card/Card'
+import Chart from '../../base/chart/Chart'
 import Input from '../../base/input/Input'
 import Button from '../../base/button/Button'
 
 import './my-plants.scss'
 
 const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
+  const chartPlantsPerHealthValueSettings = {
+    chart: {
+      caption: 'Plants per health status',
+      xaxisname: 'Plant',
+      yaxisname: 'Health status',
+      numbersuffix: '%',
+      rotatelabels: '1',
+      setadaptiveymin: '1',
+      theme: 'fusion',
+    },
+  }
+
   const [plant, setPlant] = useState({
     name: '',
     type: '',
-    health: 0,
+    health: '',
   })
 
   useEffect(() => {
@@ -30,7 +43,7 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
     setPlant({
       name: '',
       type: '',
-      health: 0,
+      health: '',
     })
   }
 
@@ -44,8 +57,9 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
 
   return (
     <div className="my-plants">
+      <h1>MY PLANTS</h1>
       <div className="dashboard-cards">
-        <Card className="card-center card-green" label="My plants">
+        <Card className="card-center card-green" label="Monitored plants">
           {plants && plants.length !== 0 ? (
             <>
               <p className="card-subtitle">
@@ -68,7 +82,7 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
                       </p>
                       <p className="my-plants-list-item-description">
                         Health status:{' '}
-                        {plant.status[[plant.status.length - 1]].health}%
+                        {plant.status[plant.status.length - 1].health}%
                       </p>
                     </li>
                   )
@@ -80,46 +94,67 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
           )}
         </Card>
       </div>
-      <p className="subtitle">Do you want to add a new plant to monitor?</p>
-      <div className="my-plants-add">
-        <Input
-          label="Name"
-          type="text"
-          className="input--default"
-          id="name"
-          name="name"
-          value={plant.name}
-          placeholder="Name"
-          onChange={handleChange}
-        />
+      <h2>Do you want to add a new plant to monitor?</h2>
+      <div className="my-plants-info">
+        <div className="my-plants-add">
+          <Input
+            label="Name"
+            type="text"
+            className="input--default"
+            id="name"
+            name="name"
+            value={plant.name}
+            placeholder="Name"
+            onChange={handleChange}
+          />
 
-        <Input
-          label="Type"
-          type="text"
-          className="input--default"
-          id="type"
-          name="type"
-          value={plant.type}
-          placeholder="Type"
-          onChange={handleChange}
-        />
+          <Input
+            label="Type"
+            type="text"
+            className="input--default"
+            id="type"
+            name="type"
+            value={plant.type}
+            placeholder="Type"
+            onChange={handleChange}
+          />
 
-        <Input
-          label="Health status"
-          type="number"
-          className="input--default"
-          id="health"
-          min="0"
-          max="100"
-          name="health"
-          value={plant.health}
-          placeholder="Health status, from 0 to 100"
-          onChange={handleChange}
-        />
+          <Input
+            label="Health status"
+            type="number"
+            className="input--default"
+            id="health"
+            min="0"
+            max="100"
+            name="health"
+            value={plant.health}
+            placeholder="Health status, from 0 to 100"
+            onChange={handleChange}
+          />
 
-        <Button type="submit" className="btn-primary" onClick={handleAddPlant}>
-          Add plant
-        </Button>
+          <Button
+            type="submit"
+            className="btn-primary"
+            onClick={handleAddPlant}
+          >
+            Add plant
+          </Button>
+        </div>
+        {plants && plants.length !== 0 && (
+          <Chart
+            type="bar2d"
+            width="100%"
+            height="400"
+            dataFormat="JSON"
+            chartData={plants.map((plant) => {
+              return {
+                label: plant.label,
+                value: plant.status[plant.status.length - 1].health,
+              }
+            })}
+            chartSettings={chartPlantsPerHealthValueSettings}
+          />
+        )}
       </div>
     </div>
   )
