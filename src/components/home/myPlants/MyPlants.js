@@ -13,7 +13,7 @@ import './my-plants.scss'
 const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
   const chartPlantsPerHealthValueSettings = {
     chart: {
-      caption: 'Plants per health status',
+      caption: 'Health status of plants',
       xaxisname: 'Plant',
       yaxisname: 'Health status',
       numbersuffix: '%',
