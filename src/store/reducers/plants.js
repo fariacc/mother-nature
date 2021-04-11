@@ -9,10 +9,13 @@ import {
   FETCH_PLANTS_ERROR,
   UPDATE_PLANT_SUCCESS,
   UPDATE_PLANT_ERROR,
+  RESET_PLANTS_SUCCESS,
 } from '../actions/actionTypes'
 
 const INITIAL_STATE = {
   authMsg: '',
+  plant: [],
+  plants: [],
 }
 
 export default function plantReducer(state = INITIAL_STATE, action) {
@@ -31,6 +34,8 @@ export default function plantReducer(state = INITIAL_STATE, action) {
     action.type === UPDATE_PLANT_ERROR
   ) {
     return { ...state, authMsg: action.payload }
+  } else if (action.type === RESET_PLANTS_SUCCESS) {
+    return INITIAL_STATE
   } else {
     return state
   }

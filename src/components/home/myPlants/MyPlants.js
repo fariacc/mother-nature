@@ -24,7 +24,7 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
   }
 
   const [plant, setPlant] = useState({
-    name: '',
+    label: '',
     type: '',
     health: '',
   })
@@ -37,14 +37,28 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
     setPlant({ ...plant, [e.target.name]: e.target.value })
   }
 
-  function handleAddPlant(e) {
-    add(plant, user)
-    fetchAll(user)
-    setPlant({
-      name: '',
-      type: '',
-      health: '',
-    })
+  function validateFields(plant) {
+    if (!plant.label || !plant.type || !plant.health) {
+      alert('Please insert valid data. Fields can not be empty.')
+      return false
+    } else if (plant.health < 0 || plant.health > 100) {
+      setPlant({ ...plant, health: '' })
+      alert('Health status value must be between 0 and 100.')
+      return false
+    }
+    return true
+  }
+
+  function handleAddPlant() {
+    if (validateFields(plant)) {
+      add(plant, user)
+      fetchAll(user)
+      setPlant({
+        label: '',
+        type: '',
+        health: '',
+      })
+    }
   }
 
   function handleRemovePlant(plantId) {
@@ -102,8 +116,8 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
             type="text"
             className="input--default"
             id="name"
-            name="name"
-            value={plant.name}
+            name="label"
+            value={plant.label}
             placeholder="Name"
             onChange={handleChange}
           />
@@ -140,7 +154,7 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
             Add plant
           </Button>
         </div>
-        {plants && plants.length !== 0 && (
+        {plants && plants.length !== 0 ? (
           <Chart
             type="bar2d"
             width="100%"
@@ -152,6 +166,15 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
                 value: plant.status[plant.status.length - 1].health,
               }
             })}
+            chartSettings={chartPlantsPerHealthValueSettings}
+          />
+        ) : (
+          <Chart
+            type="bar2d"
+            width="100%"
+            height="400"
+            dataFormat="JSON"
+            chartData={{}}
             chartSettings={chartPlantsPerHealthValueSettings}
           />
         )}

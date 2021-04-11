@@ -18,6 +18,7 @@ function Input(props) {
         disabled={props.disabled}
         onClick={props.onClick}
         onChange={props.onChange}
+        onInput={props.onInput}
         onBlur={props.onBlur}
         onFocus={props.onFocus}
       />

@@ -9,6 +9,7 @@ import {
   FETCH_PLANTS_ERROR,
   UPDATE_PLANT_SUCCESS,
   UPDATE_PLANT_ERROR,
+  RESET_PLANTS_SUCCESS,
 } from './actionTypes'
 import { beginApiCall, apiCallError } from './apiStatus'
 import firebase from '../../services/firebase'
@@ -32,8 +33,8 @@ export const add = (plant, user) => async (dispatch) => {
       .database()
       .ref(`${user}/plants`)
       .push({
-        name: plant.name,
-        value: plant.name.toLowerCase(),
+        label: plant.label,
+        value: plant.label.toLowerCase(),
         type: plant.type,
         status: [
           {
@@ -81,8 +82,8 @@ export const fetchAll = (user) => async (dispatch) => {
             const plantValues = plant.val()
             plants.push({
               id: plant.key,
-              label: plantValues.name,
-              value: plantValues.name,
+              label: plantValues.label,
+              value: plantValues.label,
               type: plantValues.type,
               status: plantValues.status,
             })
@@ -120,20 +121,23 @@ export const fetch = (plantId, userId) => async (dispatch) => {
       .on(
         'value',
         function (snapshot) {
-          let plant = [snapshot.val()]
-          plant = plant.map((item) => {
-            return {
-              id: plantId,
-              name: item.name,
-              value: item.name,
-              type: item.type,
-              status: item.status,
-            }
-          })
-          dispatch({
-            type: FETCH_PLANT_SUCCESS,
-            payload: plant,
-          })
+          let plant = []
+          plant = [snapshot.val()]
+          if (plant[0]) {
+            const plantValues = plant.map((item) => {
+              return {
+                id: plantId,
+                label: item.label,
+                value: item.label,
+                type: item.type,
+                status: item.status,
+              }
+            })
+            dispatch({
+              type: FETCH_PLANT_SUCCESS,
+              payload: plantValues,
+            })
+          }
         },
         function () {
           dispatch({
@@ -222,4 +226,8 @@ export const update = (plant, userId) => async (dispatch) => {
         "Something went wrong, we couldn't update this plant. Please try again",
     })
   }
+}
+
+export const resetPlantData = () => async (dispatch) => {
+  dispatch({ type: RESET_PLANTS_SUCCESS })
 }

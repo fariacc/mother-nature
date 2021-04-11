@@ -19,9 +19,20 @@ $bounce_height: 30px;
   }
 }
 
+@media screen and (max-width: 370px) {
+  .loader {
+    top: calc(85% + 65px);
+  }
+}
+
+@media screen and (min-width: 371px) {
+  .loader {
+    top: 60%;
+  }
+}
+
 .loader {
   position: absolute;
-  top: 60%;
   left: 50%;
 
   &-bounceball {

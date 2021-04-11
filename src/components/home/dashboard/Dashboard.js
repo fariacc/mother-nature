@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
 import { connect } from 'react-redux'
-import { fetch, fetchAll, update } from '../../../store/actions/plants'
+import {
+  fetch,
+  fetchAll,
+  update,
+  resetPlantData,
+} from '../../../store/actions/plants'
+
 import { getWeatherData } from '../../../store/actions/weather'
 
 import Card from '../../base/card/Card'
@@ -23,10 +29,11 @@ const Dashboard = ({
   weatherData,
   getWeatherData,
   update,
+  resetPlantData,
 }) => {
   let [specificPlant, setSpecificPlant] = useState([
     {
-      name: '',
+      label: '',
       value: '',
       type: '',
       health: '',
@@ -46,11 +53,12 @@ const Dashboard = ({
   }
 
   useEffect(() => {
+    resetPlantData()
     fetchAll(user)
     if (weatherData === undefined) {
       getWeatherData()
     }
-  }, [fetchAll, getWeatherData, weatherData, user])
+  }, [resetPlantData, fetchAll, getWeatherData, weatherData, user])
 
   function handleSelectOption(selectedPlant) {
     const plantId = selectedPlant.id
@@ -58,13 +66,25 @@ const Dashboard = ({
   }
 
   function handleUpdatePlant() {
-    update(specificPlant[0], user)
-    fetch(specificPlant[0].id, user)
-    fetchAll(user)
+    if (validateFields(specificPlant[0])) {
+      update(specificPlant[0], user)
+      fetch(specificPlant[0].id, user)
+      fetchAll(user)
+    }
   }
 
   function handleChange(e) {
     setSpecificPlant([{ ...plant[0], health: e.target.value }])
+  }
+
+  function validateFields(plantToValidade) {
+    if (plantToValidade.health < 0 || plantToValidade.health > 100) {
+      setSpecificPlant({ ...plantToValidade, health: '' })
+      alert('Health status value must be between 0 and 100.')
+      return false
+    }
+    setSpecificPlant({ ...plantToValidade, health: plantToValidade.health })
+    return true
   }
 
   return (
@@ -90,8 +110,8 @@ const Dashboard = ({
                   type="text"
                   className="input--default"
                   id="name"
-                  name="name"
-                  value={plant[0].name}
+                  name="label"
+                  value={plant[0].label}
                   placeholder="Name"
                   disabled
                 />
@@ -115,7 +135,7 @@ const Dashboard = ({
                   min="0"
                   max="100"
                   name="health"
-                  value={specificPlant[0].health}
+                  value={specificPlant.health}
                   placeholder="Health status, from 0 to 100"
                   onChange={handleChange}
                 />
@@ -123,9 +143,9 @@ const Dashboard = ({
                 <Button
                   type="submit"
                   className="btn-primary"
-                  onClick={() => handleUpdatePlant(plant[0])}
+                  onClick={handleUpdatePlant}
                 >
-                  Update health status
+                  Update plant
                 </Button>
               </div>
               <Chart
@@ -174,6 +194,7 @@ function mapDispatchToProps(dispatch) {
     fetchAll: (user) => dispatch(fetchAll(user)),
     getWeatherData: () => dispatch(getWeatherData()),
     update: (plant, user) => dispatch(update(plant, user)),
+    resetPlantData: () => dispatch(resetPlantData()),
   }
 }
 
