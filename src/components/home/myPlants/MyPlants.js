@@ -108,7 +108,7 @@ const MyPlants = ({ user, plants, add, remove, fetchAll }) => {
           )}
         </Card>
       </div>
-      <h2>Do you want to add a new plant to monitor?</h2>
+      <h2>Add a new plant to the monitor</h2>
       <div className="my-plants-info">
         <div className="my-plants-add">
           <Input

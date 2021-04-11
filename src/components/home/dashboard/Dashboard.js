@@ -100,7 +100,7 @@ const Dashboard = ({
               onChange={handleSelectOption}
             />
           ) : (
-            <p className="card-subtitle">You have no plants registered yet.</p>
+            <p className="card-subtitle">You have no plants registered yet. Go to 'My plants' so you can register it.</p>
           )}
           {plant && plant.length !== 0 && (
             <div className="my-plant-info">
