@@ -13,11 +13,12 @@
 - Sign out
 - Password reset
 - E-mail verification after sign up
-- Redirecting after sign in
 - Persisting auth status
 - Restricting access according to auth status
 - Adding/Removing/Updating plants
-- Chart with plants history
+- Weather widget (active localization on device is necessary)
+- Chart with info on a specif plant's health history
+- Chart with info of the last registered health status of all plants
 
 ### Project setup
 
