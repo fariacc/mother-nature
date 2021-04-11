@@ -17,7 +17,7 @@
 - Restricting access according to auth status
 - Adding/Removing/Updating plants
 - Weather widget (active localization on device is necessary)
-- Chart with info on a specif plant's health history
+- Chart with info on a specific plant's health history
 - Chart with info of the last registered health status of all plants
 
 ### Project setup
